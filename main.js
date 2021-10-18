@@ -1,33 +1,23 @@
-// const { createStore } = window.Redux;
-const axios = require('axios');
+const tokenClient = require('./tokenClient');
 
 const loginFormElement = document.querySelector("#loginFormId");
-console.log(loginFormElement);
+// console.log(loginFormElement);
 if (loginFormElement) {
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         // prevent browser from reloading
         e.preventDefault();
 
         const username = loginFormElement.querySelector("#username");
         const password = loginFormElement.querySelector("#password");
-        // console.log(password.value);
         if (!username.value || !password.value) return;
         console.log(username.value, password.value);
 
-        axios.get('http://ip.jsontest.com/')
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        const dataGet = await tokenClient.get('/test-get');
+        console.log("test-get data: ", dataGet);
 
-        // console.log("Submit", hobbyTextElement.value);
-        // const action = {
-        //     type: 'ADD_HOBBY',
-        //     payload: hobbyTextElement.value
-        // };
-        // store.dispatch(action);
+        const user = { username: "nvdinh185" };
+        const dataPost = await tokenClient.post('/test-post', user);
+        console.log("test-post data: ", dataPost);
 
         // reset form
         loginFormElement.reset();
