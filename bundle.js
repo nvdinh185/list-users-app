@@ -201,6 +201,14 @@ if (loginFormElement) {
         if (!username.value || !password.value) return;
         console.log(username.value, password.value);
 
+        axios.get('http://ip.jsontest.com/')
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
         // console.log("Submit", hobbyTextElement.value);
         // const action = {
         //     type: 'ADD_HOBBY',
