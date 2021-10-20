@@ -9,18 +9,19 @@ const pass_sign_token = 'nvdinh_18102021';
  * @param {*} req 
  * @param {*} expires 
  */
-const sign = (req, expires) => {
+const sign = (req, expires = 60000) => { // default 1 phút
 
-  let timeSign = Date.now();
+  const timeSign = Date.now();
 
-  let token = jwt.sign({
-    email: req.json_data.email,
+  const token = jwt.sign({
+    username: req.json_data.username,
+    password: req.json_data.password,
     time_sign: timeSign
   },
     pass_sign_token + timeSign
     ,
     {
-      expiresIn: expires ? expires : 60000 // default 1 phút
+      expiresIn: expires
     }
   );
 
@@ -41,7 +42,7 @@ class TokenHandler {
       userToken = jwt.decode(req.token);
     } catch (e) { }
     // console.log("userToken: ", userToken);
-    let timeSign = userToken.time_sign;
+    const timeSign = userToken.time_sign;
     //xác thực token truyền lên:
     jwt.verify(req.token, pass_sign_token + timeSign,
       (err, decoded) => {
@@ -49,7 +50,7 @@ class TokenHandler {
           console.log('Lỗi xác thực:', err.message);
           req.error = err.message;
         } else {
-          console.log('decoded:', decoded);
+          // console.log('decoded:', decoded);
           req.user = decoded;
         };
         next();
@@ -64,13 +65,13 @@ class TokenHandler {
    */
   getToken(req, res, next) {
 
-    let token = req.headers['x-access-token'] || req.headers['authorization']
+    let token = req.headers['x-access-token'] || req.headers['authorization'];
     // console.log('token1', token);
     if (!token) token = url.parse(req.url, true, false).query.token;
     // console.log('token2', token);
     //Nếu truyền token trong json_data
     if (!token) token = req.json_data ? req.json_data.token : undefined;
-    console.log('token3', token);
+    // console.log('token3', token);
 
     req.token = token && token.startsWith('Bearer ') ? token.slice(7) : token;
 
@@ -84,10 +85,9 @@ class TokenHandler {
    * @param {*} next 
    */
   requestNewToken(req, res, next) {
-    // console.log(req.json_data);
     req.token = sign(req, '10h');
     next();
   }
 }
 
-module.exports = new TokenHandler()
+module.exports = new TokenHandler();

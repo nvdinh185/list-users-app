@@ -12,14 +12,10 @@ if (loginFormElement) {
         if (!username.value || !password.value) return;
         // console.log(username.value, password.value);
 
-        // const dataGet = await tokenClient.get('/test-get');
-        // console.log("test-get data: ", dataGet);
-
         const userInfo = { username: username.value, password: password.value };
         const dataPost = await tokenClient.post('/auth/login-user', userInfo);
         console.log("test-post data: ", dataPost);
-        // lưu token xuống đĩa
-        // localStorage.setItem('token', dataPost.token);
+        alert("Đăng nhập thành công!");
 
         // reset form
         loginFormElement.reset();

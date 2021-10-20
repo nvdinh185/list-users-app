@@ -2667,32 +2667,30 @@ module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.c
 },{}],36:[function(require,module,exports){
 const tokenClient = require('./tokenClient');
 
-const loginFormElement = document.querySelector("#loginFormId");
-// console.log(loginFormElement);
-if (loginFormElement) {
+const signupFormElement = document.querySelector("#signupFormId");
+// console.log(signupFormElement);
+if (signupFormElement) {
     const handleFormSubmit = async (e) => {
         // prevent browser from reloading
         e.preventDefault();
 
-        const username = loginFormElement.querySelector("#username");
-        const password = loginFormElement.querySelector("#password");
+        const username = signupFormElement.querySelector("#username");
+        const password = signupFormElement.querySelector("#password");
         if (!username.value || !password.value) return;
         // console.log(username.value, password.value);
-
-        // const dataGet = await tokenClient.get('/test-get');
-        // console.log("test-get data: ", dataGet);
 
         const userInfo = { username: username.value, password: password.value };
         const dataPost = await tokenClient.post('/auth/create-user', userInfo);
         console.log("test-post data: ", dataPost);
         // lưu token xuống đĩa
         localStorage.setItem('token', dataPost.token);
+        alert("Đăng ký thành công!");
 
         // reset form
-        loginFormElement.reset();
+        signupFormElement.reset();
     };
 
-    loginFormElement.addEventListener("submit", handleFormSubmit);
+    signupFormElement.addEventListener("submit", handleFormSubmit);
 }
 
 },{"./tokenClient":37}],37:[function(require,module,exports){
@@ -2714,7 +2712,7 @@ const tokenClient = axios.create({
 
 tokenClient.interceptors.request.use(config => {
     const token = getToken();
-    console.log("token: ", token);
+    // console.log("token: ", token);
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

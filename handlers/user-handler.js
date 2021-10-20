@@ -1,5 +1,7 @@
 "use strict"
 
+const { v4: uuidv4 } = require('uuid');
+
 class UserHandler {
 
     /**
@@ -9,7 +11,7 @@ class UserHandler {
      * @param {*} next 
      */
     async createUser(req, res, next) {
-        let user = { id: new Date().getTime(), ...req.json_data };
+        let user = { id: uuidv4(), ...req.json_data };
         // console.log(user);
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -23,10 +25,13 @@ class UserHandler {
      * @param {*} next 
      */
     async loginUser(req, res, next) {
-        console.log(req.user);
-        console.log("json_data: ", req.json_data);
+        // console.log(req.user);
+        // console.log("json_data: ", req.json_data);
         if (req.user) {
-            if (req.user.username === req.json_data.username) { //email của token và post là giống nhau
+            if (
+                req.user.username === req.json_data.username &&
+                req.user.password === req.json_data.password
+            ) { //username và password của token và post là giống nhau
                 res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({ status: 'OK', message: 'Đăng nhập thành công!' }));
             } else {
