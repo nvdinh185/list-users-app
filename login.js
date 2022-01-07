@@ -13,9 +13,13 @@ if (loginFormElement) {
         // console.log(username.value, password.value);
 
         const userInfo = { username: username.value, password: password.value };
-        const dataPost = await tokenClient.post('/auth/login-user', userInfo);
-        console.log("test-post data: ", dataPost);
-        alert("Đăng nhập thành công!");
+        try {
+            const dataPost = await tokenClient.post('/auth/login-user', userInfo);
+            console.log("test-post data: ", dataPost);
+            alert("Đăng nhập thành công!");
+        } catch (error) {
+            console.log("Lỗi: ", error);
+        }
 
         // reset form
         loginFormElement.reset();

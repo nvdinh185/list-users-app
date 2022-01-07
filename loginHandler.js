@@ -200,9 +200,13 @@ if (loginFormElement) {
         // console.log(username.value, password.value);
 
         const userInfo = { username: username.value, password: password.value };
-        const dataPost = await tokenClient.post('/auth/login-user', userInfo);
-        console.log("test-post data: ", dataPost);
-        alert("Đăng nhập thành công!");
+        try {
+            const dataPost = await tokenClient.post('/auth/login-user', userInfo);
+            console.log("test-post data: ", dataPost);
+            alert("Đăng nhập thành công!");
+        } catch (error) {
+            console.log("Lỗi: ", error);
+        }
 
         // reset form
         loginFormElement.reset();
@@ -2718,16 +2722,16 @@ tokenClient.interceptors.request.use(config => {
     return config;
 });
 
-tokenClient.interceptors.response.use((response) => {
-    if (response && response.data) {
-        return response.data;
-    }
+// tokenClient.interceptors.response.use((response) => {
+//     if (response && response.data) {
+//         return response.data;
+//     }
 
-    return response;
-}, (error) => {
-    // Handle errors
-    throw error;
-});
+//     return response;
+// }, (error) => {
+//     // Handle errors
+//     throw error;
+// });
 
 module.exports = tokenClient;
 },{"axios":3,"query-string":34}]},{},[2]);

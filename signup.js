@@ -13,11 +13,15 @@ if (signupFormElement) {
         // console.log(username.value, password.value);
 
         const userInfo = { username: username.value, password: password.value };
-        const dataPost = await tokenClient.post('/auth/create-user', userInfo);
-        console.log("test-post data: ", dataPost);
-        // lưu token xuống đĩa
-        localStorage.setItem('token', dataPost.token);
-        alert("Đăng ký thành công!");
+        try {
+            const dataPost = await tokenClient.post('/auth/create-user', userInfo);
+            console.log("test-post data: ", dataPost);
+            // lưu token xuống đĩa
+            localStorage.setItem('token', dataPost.token);
+            alert("Đăng ký thành công!");
+        } catch (error) {
+            console.log("Lỗi: ", error);
+        }
 
         // reset form
         signupFormElement.reset();

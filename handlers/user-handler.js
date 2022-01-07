@@ -36,24 +36,8 @@ class UserHandler {
                 res.end(JSON.stringify({ status: 'OK', message: 'Đăng nhập thành công!' }));
             } else {
                 res.writeHead(435, { 'Content-Type': 'application/json; charset=utf-8' });
-                res.end(JSON.stringify({ status: 'NOK', message: 'Đăng nhập thất bại!' }));
+                res.end(JSON.stringify({ status: 'NOK', message: 'Đăng nhập thất bại!', error: 'Sai username hoặc password!' }));
             }
-        } else {
-            res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ status: 'NOK', message: 'Lỗi xác thực', error: req.error }));
-        }
-    }
-
-    /**
-     * Trả về token
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
-     */
-    getUserInfo(req, res, next) {
-        if (req.user) {
-            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ status: "OK", token: req.token }));
         } else {
             res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
             res.end(JSON.stringify({ status: 'NOK', message: 'Lỗi xác thực', error: req.error }));

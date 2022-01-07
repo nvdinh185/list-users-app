@@ -24,15 +24,15 @@ tokenClient.interceptors.request.use(config => {
     return config;
 });
 
-tokenClient.interceptors.response.use((response) => {
-    if (response && response.data) {
-        return response.data;
-    }
+// tokenClient.interceptors.response.use((response) => {
+//     if (response && response.data) {
+//         return response.data;
+//     }
 
-    return response;
-}, (error) => {
-    // Handle errors
-    throw error;
-});
+//     return response;
+// }, (error) => {
+//     // Handle errors
+//     throw error;
+// });
 
 module.exports = tokenClient;

@@ -11,13 +11,6 @@ router.post('/create-user'
     , userHandler.createUser
 );
 
-router.post('/authorize-token'
-    , postHandler.jsonProcess       //req.json_data
-    , tokenHandler.getToken
-    , tokenHandler.verify
-    , userHandler.getUserInfo
-);
-
 router.post('/login-user'
     , postHandler.jsonProcess       //req.json_data
     , tokenHandler.getToken
