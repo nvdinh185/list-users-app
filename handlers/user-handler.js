@@ -10,7 +10,7 @@ class UserHandler {
      * @param {*} res 
      * @param {*} next 
      */
-    async createUser(req, res, next) {
+    createUser(req, res, next) {
         let user = { id: uuidv4(), ...req.json_data };
         // console.log(user);
 
@@ -24,7 +24,7 @@ class UserHandler {
      * @param {*} res 
      * @param {*} next 
      */
-    async loginUser(req, res, next) {
+    loginUser(req, res, next) {
         // console.log(req.user);
         // console.log("json_data: ", req.json_data);
         if (req.user) {
