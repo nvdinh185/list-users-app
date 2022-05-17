@@ -37,10 +37,7 @@ class TokenHandler {
    * @param {*} next 
    */
   verify(req, res, next) {
-    let userToken;
-    try {
-      userToken = jwt.decode(req.token);
-    } catch (e) { }
+    let userToken = jwt.decode(req.token);
     // console.log("userToken: ", userToken);
     const timeSign = userToken.time_sign;
     //xác thực token truyền lên:

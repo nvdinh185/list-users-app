@@ -7,7 +7,10 @@ if (loginFormElement) {
 
         const username = loginFormElement.querySelector("#username").value;
         const password = loginFormElement.querySelector("#password").value;
-        if (!username || !password) return;
+        if (!username || !password) {
+            alert("Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
 
         const userInfo = { username, password };
         // console.log(userInfo);
