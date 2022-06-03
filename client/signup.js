@@ -15,7 +15,7 @@ if (signupFormElement) {
 
         const userInfo = { username, password };
         try {
-            const dataPost = await tokenClient2.post('/auth/create-user', userInfo);
+            const dataPost = await tokenClient.post('/auth/create-user', userInfo);
             console.log("test-post data: ", dataPost.data);
             // lưu token xuống đĩa
             localStorage.setItem('token', dataPost.data.token);

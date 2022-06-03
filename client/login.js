@@ -15,7 +15,7 @@ if (loginFormElement) {
         const userInfo = { username, password };
         // console.log(userInfo);
         try {
-            const dataPost = await tokenClient2.post('/auth/login-user', userInfo);
+            const dataPost = await tokenClient.post('/auth/login-user', userInfo);
             console.log("test-post data: ", dataPost.data);
             alert("Đăng nhập thành công!");
         } catch (error) {

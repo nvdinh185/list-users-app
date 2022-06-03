@@ -3,14 +3,14 @@ const getToken = () => {
     return token;
 }
 
-const tokenClient2 = axios.create({
-    baseURL: "http://localhost:8080",
+const tokenClient = axios.create({
+    baseURL: "http://localhost:4000",
     headers: {
         'content-type': 'application/json',
     },
 });
 
-tokenClient2.interceptors.request.use(config => {
+tokenClient.interceptors.request.use(config => {
     const token = getToken();
     // console.log("token: ", token);
     if (token) {
