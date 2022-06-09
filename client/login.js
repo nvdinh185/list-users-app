@@ -17,7 +17,8 @@ if (loginFormElement) {
         try {
             const dataPost = await tokenClient.post('/auth/login-user', userInfo);
             console.log("test-post data: ", dataPost.data);
-            alert("Đăng nhập thành công!");
+            console.log("Đăng nhập thành công!");
+            window.location = "https://dinh-signup-login.herokuapp.com/";
         } catch (error) {
             console.log("Lỗi: ", error);
         }

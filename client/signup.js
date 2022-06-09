@@ -19,7 +19,8 @@ if (signupFormElement) {
             console.log("test-post data: ", dataPost.data);
             // lưu token xuống đĩa
             localStorage.setItem('token', dataPost.data.token);
-            alert("Đăng ký thành công!");
+            console.log("Đăng ký thành công!");
+            window.location = "https://dinh-signup-login.herokuapp.com/login";
         } catch (error) {
             console.log("Lỗi: ", error);
         }

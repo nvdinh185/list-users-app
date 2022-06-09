@@ -10,10 +10,18 @@
 
 <body>
     <h1>Hello World</h1>
-    <a href="https://dinh-new-heroku.herokuapp.com/login">Login</a>
-    <a href="https://dinh-new-heroku.herokuapp.com/signup">Signup</a>
+    <a href="https://dinh-signup-login.herokuapp.com/login">Login</a>
+    <a href="https://dinh-signup-login.herokuapp.com/signup">Signup</a>
+
+    <input type="button" value="Logout" onclick="onLogout()" />
 
     <script type="module" src="app.js"></script>
+    <script type="text/javascript">
+        function onLogout() {
+            localStorage.removeItem('token');
+            alert("Logout thành công!");
+        }
+    </script>
 </body>
 
 </html>
