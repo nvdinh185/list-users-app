@@ -1,16 +1,16 @@
 const getToken = () => {
-    const token = localStorage.getItem('token');
+    const token = JSON.parse(localStorage.getItem('currentUser'))?.token;
     return token;
 }
 
-const tokenClient = axios.create({
-    baseURL: "https://dinh-signup-login.herokuapp.com",
+const axiosClient = axios.create({
+    baseURL: config.url,
     headers: {
         'content-type': 'application/json',
     },
 });
 
-tokenClient.interceptors.request.use(config => {
+axiosClient.interceptors.request.use(config => {
     const token = getToken();
     // console.log("token: ", token);
     if (token) {

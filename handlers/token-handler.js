@@ -1,8 +1,7 @@
 "use strict"
 const jwt = require('jsonwebtoken');
-const url = require('url');
 
-const pass_sign_token = 'nvdinh_18102021';
+const pass_sign_token = 'nvdinh_11062022';
 
 /**
  * Phương thức này để tạo mới token
@@ -11,14 +10,11 @@ const pass_sign_token = 'nvdinh_18102021';
  */
 const sign = (req, expires = 60000) => { // default 1 phút
 
-  const timeSign = Date.now();
-
   const token = jwt.sign({
     username: req.json_data.username,
     password: req.json_data.password,
-    time_sign: timeSign
   },
-    pass_sign_token + timeSign
+    pass_sign_token
     ,
     {
       expiresIn: expires
@@ -37,20 +33,18 @@ class TokenHandler {
    * @param {*} next 
    */
   verify(req, res, next) {
-    let userToken = jwt.decode(req.token);
-    // console.log("userToken: ", userToken);
-    const timeSign = userToken.time_sign;
     //xác thực token truyền lên:
-    jwt.verify(req.token, pass_sign_token + timeSign,
+    jwt.verify(req.token, pass_sign_token,
       (err, decoded) => {
         if (err) {
           console.log('Lỗi xác thực:', err.message);
-          req.error = err.message;
+          res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(JSON.stringify({ status: 'NOK', message: 'Lỗi xác thực!', error: err.message }));
         } else {
           // console.log('decoded:', decoded);
           req.user = decoded;
+          next();
         };
-        next();
       })
   }
 
@@ -62,14 +56,7 @@ class TokenHandler {
    */
   getToken(req, res, next) {
 
-    let token = req.headers['x-access-token'] || req.headers['authorization'];
-    // console.log('token1', token);
-    if (!token) token = url.parse(req.url, true, false).query.token;
-    // console.log('token2', token);
-    //Nếu truyền token trong json_data
-    if (!token) token = req.json_data ? req.json_data.token : undefined;
-    // console.log('token3', token);
-
+    const token = req.headers['authorization'];
     req.token = token && token.startsWith('Bearer ') ? token.slice(7) : token;
 
     next();

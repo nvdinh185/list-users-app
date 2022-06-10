@@ -7,15 +7,19 @@ const tokenHandler = require('../handlers/token-handler');
 
 router.post('/create-user'
     , postHandler.jsonProcess       //req.json_data
-    , tokenHandler.requestNewToken
     , userHandler.createUser
 );
 
 router.post('/login-user'
     , postHandler.jsonProcess       //req.json_data
+    , tokenHandler.requestNewToken
+    , userHandler.loginUser
+);
+
+router.get('/get-users'
     , tokenHandler.getToken
     , tokenHandler.verify
-    , userHandler.loginUser
+    , userHandler.getUsers
 );
 
 module.exports = router;

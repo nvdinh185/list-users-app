@@ -15,12 +15,14 @@ if (loginFormElement) {
         const userInfo = { username, password };
         // console.log(userInfo);
         try {
-            const dataPost = await tokenClient.post('/auth/login-user', userInfo);
-            console.log("test-post data: ", dataPost.data);
-            console.log("Đăng nhập thành công!");
-            window.location = "https://dinh-signup-login.herokuapp.com/";
+            const dataPost = await axiosClient.post('/auth/login-user', userInfo);
+            // console.log("test-post data: ", dataPost.data.user);
+            localStorage.setItem('currentUser', JSON.stringify(dataPost.data.user));
+            window.location = config.url;
         } catch (error) {
             console.log("Lỗi: ", error);
+            const errorElement = document.getElementById("error");
+            errorElement.innerHTML = `<p>Sai username hoặc password!</p>`;
         }
 
         // reset form

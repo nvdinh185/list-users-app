@@ -7,20 +7,19 @@ if (signupFormElement) {
 
         const username = signupFormElement.querySelector("#username").value;
         const password = signupFormElement.querySelector("#password").value;
-        if (!username || !password) {
+        const fullname = signupFormElement.querySelector("#fullname").value;
+        if (!username || !password || !fullname) {
             alert("Vui lòng nhập đầy đủ thông tin!");
             return;
         }
         // console.log(username, password);
 
-        const userInfo = { username, password };
+        const userInfo = { username, password, fullname };
         try {
-            const dataPost = await tokenClient.post('/auth/create-user', userInfo);
+            const dataPost = await axiosClient.post('/auth/create-user', userInfo);
             console.log("test-post data: ", dataPost.data);
-            // lưu token xuống đĩa
-            localStorage.setItem('token', dataPost.data.token);
-            console.log("Đăng ký thành công!");
-            window.location = "https://dinh-signup-login.herokuapp.com/login";
+            // console.log("Đăng ký thành công!");
+            window.location = `${config.url}/login`;
         } catch (error) {
             console.log("Lỗi: ", error);
         }
