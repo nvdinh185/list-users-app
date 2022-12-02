@@ -9,14 +9,6 @@ app.use(express.static(__dirname + '/client'));
 
 app.use('/auth', require('./routes/user-route'));
 
-app.get('/signup', function (req, res) {
-    res.sendFile(path.join(publicPath, 'signup.html'));
-});
-
-app.get('/login', function (req, res) {
-    res.sendFile(path.join(publicPath, 'login.html'));
-});
-
 app.get('/*', function (req, res) {
     res.sendFile(path.join(publicPath, 'index.html'));
 });
