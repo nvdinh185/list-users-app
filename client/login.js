@@ -25,7 +25,7 @@ if (localStorage.getItem('currentUser')) {
             } catch (error) {
                 console.log("Lỗi: ", error);
                 const errorElement = document.getElementById("error");
-                errorElement.innerHTML = `<p>Sai username hoặc password!</p>`;
+                errorElement.innerHTML = `<p style='color: red; font-style: italic;'>Sai username hoặc password!</p>`;
             }
 
             // reset form
