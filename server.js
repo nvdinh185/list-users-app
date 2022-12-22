@@ -5,7 +5,7 @@ const cors = require('cors');
 app.use(cors());
 
 const publicPath = path.join(__dirname, "client");
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(publicPath));
 
 app.use('/auth', require('./routes/user-route'));
 
