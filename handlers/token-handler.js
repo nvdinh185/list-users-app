@@ -69,7 +69,7 @@ class TokenHandler {
    * @param {*} next 
    */
   requestNewToken(req, res, next) {
-    req.token = sign(req, '10h');
+    req.token = sign(req, '1h');
     next();
   }
 }
